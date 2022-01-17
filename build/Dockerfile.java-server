@@ -1,0 +1,5 @@
+FROM dgneubert/sdemo-java-base as base
+
+# Set docker container default entry points
+ENTRYPOINT ["/opt/gridgain/bin/ignite.sh"]
+CMD ["/app/config/server-config.xml"]

@@ -1,0 +1,4 @@
+FROM dgneubert/sdemo-java-base as base
+
+ENTRYPOINT ["java", "-cp", "/opt/gridgain/libs/*:/opt/gridgain/libs/ignite-spring/*:/opt/gridgain/libs/control-center-agent/*"]
+CMD ["com.gridgain.ignite.ggnode.feeder.SDemoFeeder"]

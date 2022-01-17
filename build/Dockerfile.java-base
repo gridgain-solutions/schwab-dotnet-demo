@@ -1,0 +1,26 @@
+FROM gridgain/community:8.8.10-openjdk11 as base
+# PWD is /opt/gridgain
+
+# Copy control-center-agent and additional app jar files to the GridGain libs folder
+# TODO - conform to best practices (instead of copying all aditional jars to libs folder)
+COPY gg/optional/control-center-agent libs/control-center-agent
+COPY gg/userlibs libs
+
+# To enable full debug output below, run docker build with options: --progress plain --no-cache
+# RUN ls -lrt /opt/gridgain/libs 
+# RUN ls -lrt /opt/gridgain/bin
+# RUN ls -lrt /opt/gridgain/libs/control-center-agent
+
+FROM base as final
+
+# Copy GridGain config files
+WORKDIR /app
+COPY gg/config config
+
+# To enable full debug output below, run docker build with options: --progress plain --no-cache
+# RUN ls -lrt /app
+# RUN ls -lrt /app/config
+
+# Set docker container default entry points
+ENTRYPOINT ["/opt/gridgain/bin/ignite.sh"]
+CMD ["/app/config/server-config.xml"]
